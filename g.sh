@@ -1,3 +1,7 @@
+# Experimental library that shortens the more verbose calls
+# Answers using this aren't scored and are noted with gosh
+# in the name
+
 # echo INPUT
 e() {
   echo $1
