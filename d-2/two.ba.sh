@@ -1,7 +1,6 @@
 # expecting 1698850445
 IFS=$'\n'
-z=($(<i))
-for i in ${z[@]}
+for i in `<i`
 {
   t=${i: -1}
   [[ $i = f* ]]&&x=$[x+t]&&d=$[d+(a*t)]

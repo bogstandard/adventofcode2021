@@ -1,7 +1,6 @@
 # expecting 1374
 IFS=$'\n'
-z=($(<i))
-for i in ${z[@]}
+for i in `<i`
 {
   $[p&&i>p&&c++]
   p=$i
