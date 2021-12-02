@@ -1,5 +1,6 @@
 # expecting 1698850445
-IFS=$'\n'
+IFS="
+"
 for i in `<i`
 {
   t=${i: -1}

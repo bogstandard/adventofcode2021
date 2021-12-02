@@ -1,5 +1,6 @@
 # expecting 1418
-IFS=$'\n'
+IFS="
+"
 z=(`<i`)
 for((;j<${#z[@]};))
 {
