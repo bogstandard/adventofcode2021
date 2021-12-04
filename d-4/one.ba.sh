@@ -8,17 +8,16 @@
 
 IFS="
 "
-i=0
-g=0
-for line in `<i`
+i=g=0
+for l in `<i`
 {
-  ((i<1))&&k=$line||{
-    r=$[(i - (g*5))-1]
+  ((i<1))&&k=$l||{
+    r=$[(i-(g*5))-1]
     IFS=' '
     c=0
-    for cell in $line
+    for p in $l
     {
-      declare g${g}r${r}c${c}=$cell
+      declare g${g}r${r}c${c}=$p
       v=g${g}r${r}c${c}
       ((c++))
     }
@@ -32,59 +31,41 @@ f(){
   exit
 }
 
-
-IFS=','
-win=0
-last=
-for call in $k
+IFS=,
+for c in $k
 {
-  echo Looking for.. $call
-  for ((gi=0;gi<$g;gi++))
+  for ((G=0;G<$g;G++))
   {
-    sum=0
-    for ri in {0..4}
+    s=
+    for R in {0..4}
     {
-      for ci in {0..4}
+      for C in {0..4}
       {
-        v=g${gi}r${ri}c${ci}
-        cell=${!v}
-        ((cell==call))&&{
-          declare g${gi}r${ri}c${ci}=x
-        }||{
-          sum=$[sum+cell]
-        }
+        v=g${G}r${R}c${C}
+        K=${!v}
+        ((K==c))&&declare g${G}r${R}c${C}=x||s=$[s+K]
       }
+      T=
+      for C in {0..4}
+      {
+        v=g${G}r${R}c${C}
+        T+=${!v}
+      }
+      [ $T = xxxxx ]&&w=L=$c
 
-      # now to check row for winners
-      tr=
-      for ci in {0..4}
-      {
-        v=g${gi}r${ri}c${ci}
-        tr+=${!v}
-      }
-      [ $tr = "xxxxx" ]&&{
-        win=1
-        last=$call
-      }
     }
 
-    # check cols for winners
-    for ci in {0..4}
+    for C in {0..4}
     {
-      tc=
-      for ri in {0..4}
+      T=
+      for R in {0..4}
       {
-        v=g${gi}r${ri}c${ci}
-        tc+=${!v}
+        v=g${G}r${R}c${C}
+        T+=${!v}
       }
-      [ $tc = "xxxxx" ]&&{
-        win=1
-        last=$call
-      }
+      [ $T = xxxxx ]&&w=L=$c
     }
 
-    ((win>0))&&{
-      f $[last*sum]
-    }
+    ((w))&&f $[L*s]
   }
 }
