@@ -1,12 +1,10 @@
-# expecting 71708
+# expecting 34726
 
 # Bash3 doesnt do matrices or Assoc Arrays properly,
 # so we have to be creative..
 # declare g_$i=mystr_$i
 # v=g_$i
 # echo ${!v}
-
-winners=' '
 
 W(){
   [ $t = xxxxx ]&&w=L=$Z
@@ -87,15 +85,14 @@ for Z in $k
     }
 
     ((w))&&{
-      [[ $winners == *" $g "* ]]||{
-        echo call is $Z
+      [[ $Y == *" $g "* ]]||{
         S=$s
-        LK=$Z
-        winners+=" $g "
+        B=$Z
+        Y+=" $g "
       }
       w=L=0
     }
   }
 }
 
-echo "last winner ${winners##* } with sum $S on last call $LK total of $[S*LK]"
+echo $[S*B]
