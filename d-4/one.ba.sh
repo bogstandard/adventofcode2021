@@ -6,6 +6,19 @@
 # v=g_$i
 # echo ${!v}
 
+W(){
+  [ $t = xxxxx ]&&w=L=$Z
+}
+
+T(){
+  v=g${g}r${r}c${c}
+  t+=${!v}
+}
+
+D(){
+  eval "g${g}r${r}c${c}=$1"
+}
+
 IFS="
 "
 i=g=0
@@ -17,8 +30,8 @@ for l in `<i`
     c=0
     for p in $l
     {
-      declare g${g}r${r}c${c}=$p
-      v=g${g}r${r}c${c}
+      D $p
+      T
       ((c++))
     }
     ((i%5))||((g++))
@@ -26,46 +39,39 @@ for l in `<i`
   ((i++))
 }
 
-f(){
-  echo $1
-  exit
-}
-
+J=$g
 IFS=,
-for c in $k
+for Z in $k
 {
-  for ((G=0;G<$g;G++))
+  for ((g=0;g<$J;g++))
   {
     s=
-    for R in {0..4}
+    for r in {0..4}
     {
-      for C in {0..4}
+      for c in {0..4}
       {
-        v=g${G}r${R}c${C}
+        T
         K=${!v}
-        ((K==c))&&declare g${G}r${R}c${C}=x||s=$[s+K]
+        ((K==Z))&&D x||s=$[s+K]
       }
-      T=
-      for C in {0..4}
+      t=
+      for c in {0..4}
       {
-        v=g${G}r${R}c${C}
-        T+=${!v}
+        T
       }
-      [ $T = xxxxx ]&&w=L=$c
-
+      W
     }
 
-    for C in {0..4}
+    for c in {0..4}
     {
-      T=
-      for R in {0..4}
+      t=
+      for r in {0..4}
       {
-        v=g${G}r${R}c${C}
-        T+=${!v}
+        T
       }
-      [ $T = xxxxx ]&&w=L=$c
+      W
     }
 
-    ((w))&&f $[L*s]
+    ((w))&&echo $[L*s]&&exit
   }
 }
