@@ -10,13 +10,18 @@ W(){
   [ $t = xxxxx ]&&w=L=$Z
 }
 
-T(){
+V(){
   v=g${g}r${r}c${c}
+}
+
+T(){
+  V
   t+=${!v}
 }
 
 D(){
-  eval "g${g}r${r}c${c}=$1"
+  V
+  eval "$v=$1"
 }
 
 IFS="
@@ -50,7 +55,7 @@ for Z in $k
     {
       for c in {0..4}
       {
-        T
+        V
         K=${!v}
         ((K==Z))&&D x||s=$[s+K]
       }
