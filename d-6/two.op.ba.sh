@@ -6,7 +6,7 @@ for f in $p
 {
   for n in {0..8}
   {
-    eval "((f==$n))&&((x$n++))"
+    eval "((f==$n&&x$n++))"
   }
 }
 
