@@ -13,7 +13,7 @@ for d in {1..80}
   t=("${x[@]}")
   for f in {0..7}
   {
-    # 0s take on 1s & birth new
+    # 0s take on 1s
     # 1s take on 2s
     # 2s take on 3s
     # 4s take on 5s
