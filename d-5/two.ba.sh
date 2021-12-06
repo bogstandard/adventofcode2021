@@ -2,22 +2,21 @@
 p=`<i`
 p=${p//,/ }
 i=0
-j=0
-olaps=0
+o=0
 
-is_unset() {   [[ -z "${!1+x}" ]]; }
+d() { [[ -z "${!1+x}" ]]; }
 
-add(){
+a(){
   # if already contained, tally it
   # else add it
-  name=c$1x$2
-  is_unset $name ||{
-    is_unset o$name &&{
-      ((olaps++))
-      eval "o$name=1"
+  m=c$1x$2
+  d $m ||{
+    d o$m &&{
+      ((o++))
+      eval "o$m=1"
     }
   }
-  eval "$name=1"
+  eval "$m=1"
 }
 
 
@@ -33,32 +32,28 @@ for t in $p
 
     # end of line
     ((++i%4))||{
-      echo "$j) $olaps so far"
-      sx=(`seq $p0 $p2`)
-      sy=(`seq $p1 $p3`)
+      sx=($(seq $p0 $p2))
+      sy=($(seq $p1 $p3))
       #echo covers ${sx[@]}, ${sy[@]}
 
       ((${#sx[@]}<2))&&{
-        echo sideways
         for y in ${sy[@]}
         {
-          add $p0 $y
+          a $p0 $y
         }
       }
 
       ((${#sy[@]}<2))&&{
-        echo vertical
         for x in ${sx[@]}
         {
-          add $x $p1
+          a $x $p1
         }
       }
 
       ((${#sx[@]}>1))&&((${#sy[@]}>1))&&{
-        echo diagonal
-        for ((n=0;n<${#sx[@]};n++))
+        for ((n=0;n<${#sx[*]};n++))
         {
-          add ${sx[$n]} ${sy[$n]}
+          a ${sx[$n]} ${sy[$n]}
         }
       }
 
@@ -68,4 +63,4 @@ for t in $p
   }
 }
 
-echo overlaps $olaps
+echo $o
