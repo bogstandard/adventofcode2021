@@ -3,9 +3,6 @@ IFS=,
 numbers=`<i`
 costs=()
 
-# make array of cost of move to each point
-# find index of lowest
-
 for from in ${numbers[@]}
 {
   i=0
