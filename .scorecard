@@ -1,5 +1,5 @@
 @ Bogstandard
-# Awaiting the frost
+# Frosted tips
 One / One: d-1/one.ba.sh
 One / Two: d-1/two.ba.sh
 Two / One: d-2/one.ba.sh
@@ -12,3 +12,5 @@ Five / One: d-5/one.ba.sh
 Five / Two: d-5/two.ba.sh
 Six / One: d-6/one.op.ba.sh
 Six / Two: d-6/two.op.ba.sh
+Seven / One: d-7/one.ba.sh
+Seven / Two: d-7/two.ba.sh
