@@ -1,28 +1,25 @@
 # expecting 328187
 IFS=,
-numbers=`<i`
-costs=()
+N=`<i`
+C=()
 
-for from in ${numbers[@]}
+for f in ${N[@]}
 {
-  i=0
-  for to in ${numbers[@]}
+  i=
+  for t in ${N[@]}
   {
-    d=$[from-to]
+    d=$[f-t]
     d="${d##*[+-]}"
-    cost=${costs[$i]}
-    costs[$i]=$[d + cost]
+    c=${C[$i]}
+    C[$i]=$[d + c]
     ((i++))
   }
 }
 
-last=0
-for cost in ${costs[@]}
+for c in ${C[@]}
 {
-  ((!last||cost<last))&&{
-    last=$cost
-  }
+  ((!l||c<l))&&l=$c
 }
 
-echo $last
+echo $l
 
