@@ -1,4 +1,5 @@
 # expecting 328187
+# this could be math, but why use a ski when you've a snowmobile
 IFS=,
 N=`<i`
 C=()

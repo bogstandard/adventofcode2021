@@ -1,4 +1,5 @@
 # expecting 91257582
+# this could be math, but why use a ski when you've a snowmobile
 IFS=,
 N=`<i`
 C=()
@@ -16,7 +17,9 @@ for f in ${N[@]}
     d=$[f-t]
     d="${d##*[+-]}"
     c=${C[$i]}
-
+    # maths is magic
+    # why does this work?
+    # only the elfs know
     C[$i]=$[((d*(d+1))/2) + c]
     ((i++))
   }
