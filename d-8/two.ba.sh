@@ -1,15 +1,4 @@
-# expecting 512
-# d    true    count
-# 0 -> abcfg   (5)
-# 1 -> cf      (2) unique
-# 2 -> acdeg   (5)
-# 3 -> acdfg   (5)
-# 4 -> bcdf    (4) unique
-# 5 -> abdfg   (5)
-# 6 -> abdefg  (6)
-# 7 -> acf     (3) unique
-# 8 -> abcdefg (7) unique
-# 9 -> abcdfg  (6)
+# expecting 1091165
 
 # unique IDs
 # these were worked from the example
@@ -39,8 +28,11 @@ get() {
   echo ${count[$r]}
 }
 
+
 IFS="
 "
+
+total=0
 for line in `<i`
 {
   count=()
@@ -56,25 +48,14 @@ for line in `<i`
     for ((i=0; i<${#word}; i++))
     {
       char=${word:$i:1}
-
-      echo -n counting $char
+      # echo -n counting $char
       count $char
       res=$(get $char)
-      echo -n " ($res)"
-      echo
+      # echo -n " ($res)"
+      # echo
     }
-    #lens[${#word}]=$[lens[${#word}]+1]
-    echo
+    # echo
   }
-
-  # count check
-  chars="a b c d e f g"
-  for char in $chars
-  {
-      res=$(get $char)
-      echo "$char ($res)"
-  }
-  echo
 
   # get unique ids
   for word in $input
@@ -86,11 +67,12 @@ for line in `<i`
       res=$(get $char)
       id=$[id+res]
     }
-    echo $word at $id
+    # echo $word at $id
   }
 
-  echo
+  # echo
 
+  cuml=""
   for word in $output
   {
     id=0
@@ -100,10 +82,14 @@ for line in `<i`
       res=$(get $char)
       id=$[id+res]
     }
-    echo output $word at $id means ${ids[$id]}
+    cuml=$cuml${ids[$id]}
   }
+  cuml=$((10#$cuml)) # removing leading zeros
+  total=$((total+cuml))
+  echo "$total (+$cuml)"
 
   IFS="
   "
-  break
 }
+
+echo $total
