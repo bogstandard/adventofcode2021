@@ -1,3 +1,4 @@
+# expecting 512
 # d    true    count
 # 0 -> abcfg   (5)
 # 1 -> cf      (2) unique
