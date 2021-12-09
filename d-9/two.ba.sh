@@ -1,4 +1,4 @@
-# expecting 530
+# expecting 1019494
 IFS="
 "
 lines=(`<i`)
@@ -6,20 +6,6 @@ width=${#lines[0]}
 height=${#lines[@]}
 points=()
 basins=()
-
-# print function
-pr(){
-  echo
-  for ((y=0;y<$height;y++))
-  {
-    for ((x=0;x<$width;x++))
-    {
-      p=${points[$[width * y + x]]}
-      echo -n ${points[$[width * y + x]]}
-    }
-    echo
-  }
-}
 
 # bootstrap the data
 for ((y=0;y<$height;y++))
@@ -126,4 +112,5 @@ for ((y=0;y<$height;y++))
   }
 }
 
-printf '%s\n' "${basins[@]}" | sort -n | tail -3 | head -3
+tops=(`printf '%s\n' "${basins[@]}" | sort -n | tail -3 | head -3`)
+echo $[tops[0]*tops[1]*tops[2]]
