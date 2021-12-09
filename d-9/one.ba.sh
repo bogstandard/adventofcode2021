@@ -1,26 +1,26 @@
 # expecting 530
 IFS="
 "
-lines=(`<i`)
-width=${#lines[0]}
-height=${#lines[@]}
-points=()
+L=(`<i`)
+w=${#L[0]}
+h=${#L[@]}
+P=()
 
-for ((y=0;y<$height;y++))
+for ((y=0;y<$h;y++))
 {
-  for ((x=0;x<$width;x++))
+  for ((x=0;x<$w;x++))
   {
-    points[$[width * y + x]]=${lines[$y]:$x:1}
+    P[$[w*y+x]]=${L[$y]:$x:1}
   }
 }
 
-sum=0
+s=0
 
-for ((y=0;y<$height;y++))
+for ((y=0;y<$h;y++))
 {
-  for ((x=0;x<$width;x++))
+  for ((x=0;x<$w;x++))
   {
-    p=${points[width * y + x]}
+    p=${P[w*y+x]}
 
     # default to high
     t=9
@@ -29,30 +29,19 @@ for ((y=0;y<$height;y++))
     l=9
 
     # not ths
-    ((y>0))&&{
-      t=${points[$[width * (y-1) + x]]}
-    }
+    ((y>0))&&t=${P[$[w*(y-1)+x]]}
 
     # not rhs
-    ((x<(width-1)))&&{
-      r=${points[$[width * y + (x+1)]]}
-    }
+    ((x<(w-1)))&&r=${P[$[w*y+(x+1)]]}
 
     # not bhs
-    ((y<(height-1)))&&{
-      b=${points[$[width * (y+1) + x]]}
-    }
+    ((y<(h-1)))&&b=${P[$[w*(y+1)+x]]}
 
     # not lhs
-    ((x>0))&&{
-      l=${points[$[width * y + (x-1)]]}
-    }
+    ((x>0))&&l=${P[$[w*y+(x-1)]]}
 
-    ((p<t&&p<r&&p<b&&p<l))&&{
-      echo "$p lower than ($t $r $b $l)"
-      sum=$[sum+p+1]
-    }
+    ((p<t&&p<r&&p<b&&p<l))&&s=$[s+p+1]
   }
 }
 
-echo $sum
+echo $s

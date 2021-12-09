@@ -1,33 +1,31 @@
 # expecting 1019494
 IFS="
 "
-lines=(`<i`)
-width=${#lines[0]}
-height=${#lines[@]}
-points=()
-basins=()
+L=(`<i`)
+w=${#L[0]}
+h=${#L[@]}
+P=()
+B=()
 
 # bootstrap the data
-for ((y=0;y<$height;y++))
+for ((y=0;y<$h;y++))
 {
-  for ((x=0;x<$width;x++))
+  for ((x=0;x<$w;x++))
   {
-    points[$[width * y + x]]=${lines[$y]:$x:1}
+    P[$[w*y+x]]=${L[$y]:$x:1}
   }
 }
 
-hunt() {
+h() {
 
   local x=$1
   local y=$2
-  local inital=$3
-  local p=${points[width * y + x]}
+  local i=$3
+  local p=${P[width * y + x]}
 
-  basins[$inital]=$[${basins[$inital]}+1]
+  B[$i]=$[${B[$i]}+1]
 
-  echo "looking at $x,$y ($p)"
-
-  points[width * y + x]=9
+  P[w*y+x]=9
 
   # default to high
   local t=9
@@ -37,80 +35,45 @@ hunt() {
 
   # not ths
   ((y>0))&&{
-    local j=$[width * (y-1) + x]
-    t=${points[$j]}
-    ((t<9))&&{
-      hunt $x $[y-1] $inital
-    }
+    local j=$[w * (y-1) + x]
+    t=${P[$j]}
+    ((t<9))&&h $x $[y-1] $i
   }
 
   # not rhs
-  ((x<(width-1)))&&{
-    local j=$[width * y + (x+1)]
-    r=${points[$j]}
-    ((r<9))&&{
-      hunt $[x+1] $y $inital
-    }
+  ((x<(w-1)))&&{
+    local j=$[w * y + (x+1)]
+    r=${P[$j]}
+    ((r<9))&&h $[x+1] $y $i
   }
 
   # not bhs
-  ((y<(height-1)))&&{
-    local j=$[width * (y+1) + x]
-    b=${points[$j]}
-    ((b<9))&&{
-      hunt $x $[y+1] $inital
-    }
+  ((y<(h-1)))&&{
+    local j=$[w * (y+1) + x]
+    b=${P[$j]}
+    ((b<9))&&h $x $[y+1] $i
   }
 
   # not lhs
   ((x>0))&&{
-    local j=$[width * y + (x-1)]
-    l=${points[$j]}
-    ((l<9))&&{
-      hunt $[x-1] $y $inital
-    }
+    local j=$[w * y + (x-1)]
+    l=${P[$j]}
+    ((l<9))&&h $[x-1] $y $i
   }
 }
 
 
-for ((y=0;y<$height;y++))
+for ((y=0;y<$h;y++))
 {
-  for ((x=0;x<$width;x++))
+  for ((x=0;x<$w;x++))
   {
-    p=${points[width * y + x]}
-
-    # default to high
-    t=9
-    r=9
-    b=9
-    l=9
-
-    # not ths
-    ((y>0))&&{
-      t=${points[$[width * (y-1) + x]]}
-    }
-
-    # not rhs
-    ((x<(width-1)))&&{
-      r=${points[$[width * y + (x+1)]]}
-    }
-
-    # not bhs
-    ((y<(height-1)))&&{
-      b=${points[$[width * (y+1) + x]]}
-    }
-
-    # not lhs
-    ((x>0))&&{
-      l=${points[$[width * y + (x-1)]]}
-    }
-
-    ((p<t&&p<r&&p<b&&p<l))&&{
-      basins[$[width * y + x]]=0
-      hunt $x $y $[width * y + x]
+    p=${P[w*y+x]}
+    ((p<9))&&{
+      B[$[w*y+x]]=0
+      h $x $y $[w*y+x]
     }
   }
 }
 
-tops=(`printf '%s\n' "${basins[@]}" | sort -n | tail -3 | head -3`)
-echo $[tops[0]*tops[1]*tops[2]]
+T=(`printf '%s\n' "${B[@]}" | sort -n | tail -3 | head -3`)
+echo $[T[0]*T[1]*T[2]]
