@@ -2,57 +2,52 @@
 
 # this is my last day of Bashing it
 # moving to something else after this
+
 IFS="
 "
 
-opens="([{<"
-closers=")]}>"
-t=
+O="([{<"
+C=")]}>"
 
-for line in `<i`
+for L in `<i`
 {
 
   s=0
-  stack=""
-  error=""
+  S=""
 
-  get() {
-    e=${stack:0:1}
-    p=${opens#*$e}
+  G() {
+    e=${S:0:1}
+    p=${O#*$e}
     p=${#p}
-    l=${#opens}
+    l=${#O}
     p=$[l-p-1]
-    g=${closers:p:1}
-    stack=${stack:1}
+    g=${C:p:1}
+    S=${S:1}
   }
 
-  for ((n=0;n<${#line};n++))
+  for ((n=0;n<${#L};n++))
   {
-    c=${line:n:1}
-    [[ $c == *[$opens]* ]]&&{
-      # opener
-      stack=$c$stack
-    }||{
+    c=${L:n:1}
+    [[ $c == *[$O]* ]]&&S=$c$S||{
       # closer
-      get
+      G
       [[ "$c" = "$g" ]]||{
-        stack=""
+        S=""
         break
       }
     }
   }
 
-  ((${#stack}>0))&&{
-    for ((n=0;n<${#stack};))
+  ((${#S}>0))&&{
+    for ((n=0;n<${#S};))
     {
-      get
+      G
       s=$[(s*5)+p+1]
     }
-    t+=" $s "
+    t+="$s "
   }
-  #echo $s
 }
 
 t=`echo $t | tr " " "\n" | sort -g`
-t=( ${t} )
+t=(${t})
 echo ${t[$[(${#t[@]})/2]]}
